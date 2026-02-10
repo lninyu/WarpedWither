@@ -1,0 +1,4 @@
+name: WarpedWither
+version: '1.0'
+main: me.lninyu.warpedWither.WarpedWither
+api-version: '1.21'
