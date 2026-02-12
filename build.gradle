@@ -18,6 +18,9 @@ repositories {
 dependencies {
     //noinspection VulnerableLibrariesLocal
     compileOnly("io.papermc.paper:paper-api:${paperApiVersion}")
+    compileOnly("com.github.ben-manes.caffeine:caffeine:${caffeineVersion}")
+    compileOnly("com.mysql:mysql-connector-j:${mysqlConnectorJVersion}")
+    compileOnly("com.zaxxer:HikariCP:${hikariCPVersion}")
     testImplementation("com.tngtech.archunit:archunit:${archunitVersion}")
     testImplementation("org.junit.jupiter:junit-jupiter:${junitVersion}")
     testImplementation("org.junit.platform:junit-platform-launcher:${junitVersion}")
@@ -30,10 +33,10 @@ tasks {
     runServer {
         minecraftVersion("1.21.10")
     }
-}
 
-tasks.named("test") {
-    useJUnitPlatform()
+    test {
+        useJUnitPlatform()
+    }
 }
 
 def targetJavaVersion = 21
