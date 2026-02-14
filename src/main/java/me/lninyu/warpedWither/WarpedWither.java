@@ -1,35 +1,30 @@
 package me.lninyu.warpedWither;
 
-import com.github.benmanes.caffeine.cache.CaffeineSpec;
-import me.lninyu.warpedWither.application.PlayerService;
-import org.bukkit.Location;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.*;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public final class WarpedWither extends JavaPlugin {
-    private static final Logger LOGGER = LoggerFactory.getLogger(WarpedWither.class);
-    private PlayerService playerService;
-
-    public static Logger logger() {
-        return LOGGER;
-    }
-
-    public PlayerService playerService() {
-        return playerService;
-    }
-
     @Override
     public void onEnable() {
-        LOGGER.info("Hello!");
-        playerService = new PlayerService(CaffeineSpec.parse("maximumSize_=64,expireAfterAccess=30m"));
+        getServer().getPluginManager().registerEvents(new Listener() {
+            @EventHandler
+            public void onPlayerSneak(PlayerToggleSneakEvent event) {
+                event.getPlayer().sendMessage(Component.empty()
+                    .append(Component.text("Hello! クリスマスカラーだ! 見ずらいだろ!?", Style.style()
+                        .color(TextColor.color(0xff0000))
+                        .shadowColor(ShadowColor.shadowColor(0xff00ff00))
+                        .insertion("unko")
+                        .build()))
+                );
+            }
+        }, this);
     }
 
     @Override
     public void onDisable() {
-        LOGGER.info("Goodbye!");
-        if (playerService != null){
-            playerService.close();
-        }
     }
 }
